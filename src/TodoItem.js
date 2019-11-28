@@ -13,7 +13,7 @@ export default class TodoItem extends React.Component {
     }
 
     render() {
-        console.log(this.props.item)
+        console.log("todoitem props",this.props)
         return (
             <div>{this.props.item.text}
                 <button onClick={this.handleDelete}>Delete</button>
