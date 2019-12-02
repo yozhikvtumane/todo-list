@@ -9,7 +9,7 @@ export default class TodoList extends React.Component {
 		this.handleItemCreate = this.handleItemCreate.bind(this)
 		this.renderItems = this.renderItems.bind(this)
 		this.handleDelete = this.handleDelete.bind(this)
-
+		this.handleAmountChange = this.handleAmountChange.bind(this)
 
 		this.state = {
 			items: []
@@ -17,10 +17,13 @@ export default class TodoList extends React.Component {
 	}
 
 	handleItemCreate(item) {
+		console.log('item handleItemCreate', item)
 		let stateItem = {
-			text: item,
-			id: Date.now()
+			text: item.text,
+			id: Date.now(),
+			itemCount: item.itemCount
 		}
+		
 		this.setState({
 			items: [...this.state.items, stateItem]
 		})
@@ -32,9 +35,28 @@ export default class TodoList extends React.Component {
 			items: [...newArr]
 		})
 	}
+	
+	handleAmountChange(itemId, amount) {
+		console.log("itemId, amount", itemId, amount)
+		let newArr = this.state.items.map(item => {
+			console.log("item inside map", item)
+			if (itemId === item.id) {
+				item.itemCount = amount
+				return item
+			} else {
+				return item
+			}
+		})
+		
+		console.log('newArr', newArr)
+		this.setState({items: [...newArr]})
+	}
 
 	renderItems() {
-		return this.state.items.map(value => <TodoItem key={value.id} item={value} onDelete={this.handleDelete}/>)
+		return this.state.items.map(value => {
+			console.log("TodoList Value" , value)
+			return <TodoItem key={value.id} item={value} onDelete={this.handleDelete} onAmountChange={this.handleAmountChange()}/>
+		})
 	}
 
 	render() {

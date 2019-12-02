@@ -3,27 +3,40 @@ import React from 'react'
 export default class NewItem extends React.Component {
 	constructor() {
 		super()
-		this.handleChange = this.handleChange.bind(this)
+		this.handleTextChange = this.handleTextChange.bind(this)
+		this.handleAmountChange = this.handleAmountChange.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
+		
 
 		this.state = {
-			text: ""
+			text: "",
+			itemCount: 1
 		}
 	}
 
-	handleChange(opt) {
+	handleTextChange(e) {
+		
 		this.setState({
-			text: opt.target.value
+			text: e.target.value
 		})
 	}
-
+	
+	handleAmountChange(e) {
+		console.log("num input e.target", e.target.value)
+		this.setState({
+			itemCount: +e.target.value
+		})
+	}
+	
 	handleSubmit(event) {
 		
 		event.preventDefault()
 		if (this.state.text === "") return
+		
 		if (typeof this.props.onItemCreate === 'function') {
-			this.props.onItemCreate(this.state.text)
-			this.setState({text: ""})
+			console.log('handleSubmit state', this.state)
+			this.props.onItemCreate(this.state)
+			this.setState({text: "", itemCount: 1})
 		}
 	}
 	
@@ -32,11 +45,17 @@ export default class NewItem extends React.Component {
 			<div>
 				<form onSubmit={this.handleSubmit}>
 					<input 
-						key="newItemInput"
+						key="newItemTextInput"
 						type="text"
-						onChange={this.handleChange}
+						onChange={this.handleTextChange}
 						placeholder="Add new todo item"
 						value={this.state.text} 
+					/>
+					<input 
+						type="number"
+						key="newItemNumberInput"
+						onChange={this.handleAmountChange}
+						value={this.state.itemCount}
 					/>
 					<input 
 						key="newItemSubmit"
