@@ -4,7 +4,10 @@ export default class TodoItem extends React.Component {
     constructor() {
         super()
         this.handleDelete = this.handleDelete.bind(this)
-        this.handleAmoutChange = this.handleAmoutChange.bind(this)
+        this.handleAmountChange = this.handleAmountChange.bind(this)
+        this.state = {
+            
+        }
     }
 
     handleDelete() {
@@ -13,9 +16,10 @@ export default class TodoItem extends React.Component {
         }
     }
     
-    handleAmoutChange(e) {
-        e.preventDefault()
-        if (this.props.onAmountChange === 'function') {
+    handleAmountChange(e) {
+        console.log("handleAmountChange", e.target.value, this.props)
+        // e.preventDefault()
+        if (typeof this.props.onAmountChange === 'function') {
             console.log("this.props.item.id, this.props.item.itemCount", this.props.item.id, this.props.item.itemCount)
             this.props.onAmountChange(this.props.item.id, this.props.item.itemCount)
         }

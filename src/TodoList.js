@@ -55,7 +55,7 @@ export default class TodoList extends React.Component {
 	renderItems() {
 		return this.state.items.map(value => {
 			console.log("TodoList Value" , value)
-			return <TodoItem key={value.id} item={value} onDelete={this.handleDelete} onAmountChange={this.handleAmountChange()}/>
+			return <TodoItem key={value.id} item={value} onDelete={this.handleDelete} onAmountChange={this.handleAmountChange}/>
 		})
 	}
 
